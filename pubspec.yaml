@@ -33,8 +33,11 @@ dependencies:
     sdk: flutter
   curved_navigation_bar: ^1.0.3
   page_transition: '^1.0.9'
+<<<<<<< HEAD
   flutter_login: ^4.0.0
   dashboard: ^0.0.2+4
+=======
+>>>>>>> 6c772efce93ec628b899a2df25bfcebd43200467
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -69,7 +72,10 @@ flutter:
     - assets/imagens/img_teste.jpg
     - assets/imagens/qrcode_teste.png
     - assets/imagens/fundo_profile.png
+<<<<<<< HEAD
     - assets/imagens/fundo_qrcode.png
+=======
+>>>>>>> 6c772efce93ec628b899a2df25bfcebd43200467
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

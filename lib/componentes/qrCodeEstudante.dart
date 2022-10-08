@@ -7,6 +7,7 @@ class qrCodeEstudante extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return SafeArea(
         child: Column(
           children: [
@@ -41,6 +42,23 @@ class qrCodeEstudante extends StatelessWidget {
             ),
             Center(
           heightFactor: 1,
+=======
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+              "Leitor QR Code"
+              ,style: TextStyle(
+                fontSize: 25.0,
+                color:Color.fromARGB(255, 0, 0, 0),
+                letterSpacing: 2.0,
+                fontWeight: FontWeight.w400,
+            ),
+        ),
+        Center(
+          heightFactor: 1.9,
+>>>>>>> 6c772efce93ec628b899a2df25bfcebd43200467
           child: Column(
             children: [
               Container(
@@ -56,8 +74,13 @@ class qrCodeEstudante extends StatelessWidget {
             ],
           ),
         ),
+<<<<<<< HEAD
           ],
         ),
       );
+=======
+      ],
+    );
+>>>>>>> 6c772efce93ec628b899a2df25bfcebd43200467
   }
 }
