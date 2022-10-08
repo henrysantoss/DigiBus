@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:projeto_pi1/paginaInicial.dart';
+import 'package:projeto_pi1/telaLogin.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       scrollBehavior: AppScrollBehavior(),
       debugShowCheckedModeBanner: false,
-      home: paginaInicial(),
+      home: LoginScreen(),
     );
   }
 }

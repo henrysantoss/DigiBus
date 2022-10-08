@@ -7,21 +7,40 @@ class qrCodeEstudante extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
+    return SafeArea(
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    "assets/imagens/fundo_qrcode.png"
+                  ),
+                  fit: BoxFit.fill
+                )
+              ),
+            child: Container(
+              width: double.infinity,
+              height: 200,
+              child: Container(
+                alignment: Alignment(0.0,2.5),
+              ),
+            ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
               "Leitor QR Code"
               ,style: TextStyle(
                 fontSize: 25.0,
-                color:Color.fromARGB(255, 0, 0, 0),
+                color:Colors.blueGrey,
                 letterSpacing: 2.0,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w400
             ),
-        ),
-        Center(
-          heightFactor: 1.9,
+            ),
+            Center(
+          heightFactor: 1,
           child: Column(
             children: [
               Container(
@@ -37,7 +56,8 @@ class qrCodeEstudante extends StatelessWidget {
             ],
           ),
         ),
-      ],
-    );
+          ],
+        ),
+      );
   }
 }
