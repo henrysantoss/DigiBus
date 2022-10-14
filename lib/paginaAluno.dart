@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'componentes/perfilEstudante.dart';
 import 'componentes/qrCodeEstudante.dart';
 
-class paginaInicial extends StatefulWidget {
+class paginaAluno extends StatefulWidget {
   @override
-  State<paginaInicial> createState() => _paginaInicialState();
+  State<paginaAluno> createState() => _paginaAlunoState();
 }
 
-class _paginaInicialState extends State<paginaInicial> {
+class _paginaAlunoState extends State<paginaAluno> {
   List<Widget> Paginas = [
     perfilEstudante(),
     qrCodeEstudante(),
