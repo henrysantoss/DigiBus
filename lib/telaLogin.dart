@@ -12,6 +12,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   String? msgErro = '';
+  String? login = '';
 
   Duration get loginTime => Duration(milliseconds: 1150);
 
@@ -21,9 +22,18 @@ class _LoginScreenState extends State<LoginScreen> {
         email: data.name,
         senha: data.password,
       );
+      
+      setState(() {
+        if (data.name.contains("@motorista")){
+          login = "motorista";
+        } else {
+          login = "aluno";
+        }
+      });
+
       return '';
     } on FirebaseAuthException catch (e) {
-      return 'Login ou Senha incorretos!';
+      return msgErro;
     };
   }
 
@@ -57,9 +67,13 @@ class _LoginScreenState extends State<LoginScreen> {
         goBackButton: 'Voltar',
       ),
       onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => paginaInicial(),
-        ));
+        if (login == "aluno") {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => paginaInicial(),
+          ));
+        } else {
+          print("teste");
+        }
       }, onRecoverPassword: _recuperarSenha,
     );
   }
