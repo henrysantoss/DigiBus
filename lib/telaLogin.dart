@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_login/theme.dart';
-import 'package:projeto_pi1/paginaInicial.dart';
+import 'package:projeto_pi1/paginaAluno.dart';
+import 'package:projeto_pi1/paginaMotorista.dart';
 import 'package:projeto_pi1/Firebase/Autenticador.dart';
 import 'package:firebase_auth/firebase_auth.dart';
  
@@ -12,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   String? msgErro = '';
+  String? login = '';
 
   Duration get loginTime => Duration(milliseconds: 1150);
 
@@ -21,9 +23,18 @@ class _LoginScreenState extends State<LoginScreen> {
         email: data.name,
         senha: data.password,
       );
+      
+      setState(() {
+        if (data.name.contains("@motorista")){
+          login = "motorista";
+        } else {
+          login = "aluno";
+        }
+      });
+
       return '';
     } on FirebaseAuthException catch (e) {
-      return 'Login ou Senha incorretos!';
+      return msgErro;
     };
   }
 
@@ -57,9 +68,15 @@ class _LoginScreenState extends State<LoginScreen> {
         goBackButton: 'Voltar',
       ),
       onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => paginaInicial(),
-        ));
+        if (login == "aluno") {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => paginaAluno(),
+          ));
+        } else {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => paginaMotorista(),
+          ));
+        }
       }, onRecoverPassword: _recuperarSenha,
     );
   }
