@@ -34,6 +34,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
       return '';
     } on FirebaseAuthException catch (e) {
+      setState(() {
+        if (e.code == "invalid-email") {
+          msgErro = "Email Inválido";
+        } else if (e.code == "wrong-password"){
+          msgErro = "Senha Inválida";
+        } else {
+          msgErro = "Usuário não encontrado!";
+        }
+      });
+
       return msgErro;
     };
   }
@@ -72,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => paginaAluno(),
           ));
-        } else {
+        } else if (login == "motorista") {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => paginaMotorista(),
           ));
