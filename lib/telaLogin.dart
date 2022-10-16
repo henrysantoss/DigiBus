@@ -5,7 +5,7 @@ import 'package:projeto_pi1/paginaAluno.dart';
 import 'package:projeto_pi1/paginaMotorista.dart';
 import 'package:projeto_pi1/Firebase/Autenticador.dart';
 import 'package:firebase_auth/firebase_auth.dart';
- 
+
 class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -14,8 +14,18 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String? msgErro = '';
   String? login = '';
+  List<String> getNome = [];
+  String nomeAluno = '';
 
   Duration get loginTime => Duration(milliseconds: 1150);
+
+  String capitalize(String string) {
+    if (string.isEmpty) {
+      return string;
+    }
+
+    return string[0].toUpperCase() + string.substring(1);
+  }
 
   Future<String?> _autorizarUsuario(LoginData data) async {
     try {
@@ -29,6 +39,9 @@ class _LoginScreenState extends State<LoginScreen> {
           login = "motorista";
         } else {
           login = "aluno";
+          getNome = data.name.split("@");
+          nomeAluno = getNome[0].trim();
+          nomeAluno = capitalize(nomeAluno);
         }
       });
 
@@ -80,7 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
       onSubmitAnimationCompleted: () {
         if (login == "aluno") {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => paginaAluno(),
+            builder: (context) => paginaAluno(
+              aluno: nomeAluno,
+            ),
           ));
         } else if (login == "motorista") {
           Navigator.of(context).pushReplacement(MaterialPageRoute(

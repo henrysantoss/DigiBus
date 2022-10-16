@@ -6,15 +6,22 @@ import 'componentes/perfilEstudante.dart';
 import 'componentes/qrCodeEstudante.dart';
 
 class paginaAluno extends StatefulWidget {
+  String aluno;
+
+  paginaAluno({
+    required this.aluno,
+  });
+
   @override
-  State<paginaAluno> createState() => _paginaAlunoState();
+  State<paginaAluno> createState() => _paginaAlunoState(nomeAluno: aluno,);
 }
 
 class _paginaAlunoState extends State<paginaAluno> {
-  List<Widget> Paginas = [
-    perfilEstudante(),
-    qrCodeEstudante(),
-  ];
+  String nomeAluno;
+  _paginaAlunoState({
+    required this.nomeAluno,
+  });
+
   int meuIndex = 0;
 
   PageController _pageController = PageController(initialPage: 0);
@@ -31,7 +38,7 @@ class _paginaAlunoState extends State<paginaAluno> {
           });
         },
         children: [
-          perfilEstudante(),
+          perfilEstudante(nomeAluno: nomeAluno,),
           qrCodeEstudante(),
         ],
       ),
