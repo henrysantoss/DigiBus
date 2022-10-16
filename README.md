@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # projeto_pi1 oi
-=======
-# projeto_pi1
->>>>>>> 6c772efce93ec628b899a2df25bfcebd43200467
 
 A new Flutter project.
 
