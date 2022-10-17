@@ -10,11 +10,7 @@ class qrCodeMotorista extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'QRCODE',
-      home: QRCodePage(),
-      debugShowCheckedModeBanner: false,
-    );
+    return QRCodePage();
   }
 }
 
