@@ -1,11 +1,13 @@
-
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+
+import '../Firebase/Autenticador.dart';
 
 class qrCodeMotorista extends StatelessWidget {
   const qrCodeMotorista({super.key});
@@ -28,8 +30,33 @@ class _QRViewExampleState extends State<QRViewExample> {
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
+  void lerQrCodeEInserirNaLista() async {
+    if (result != null) {
+      final firestoreInstance = FirebaseFirestore.instance;
+      var nomeAluno;
+      await firestoreInstance
+          .collection("Alunos")
+          .doc(result!.code)
+          .get()
+          .then((value) => {
+                nomeAluno = value.data()?["nome"],
+                firestoreInstance
+                    .collection("Motorista")
+                    .doc(Autenticador().UsuarioAtual?.uid)
+                    .collection("ListaAlunos")
+                    .add({"nome": nomeAluno})
+              });
+      controller!.pauseCamera();
+      Future.delayed(Duration(seconds: 1), () {
+        controller!.resumeCamera();
+      });
+      result = null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    lerQrCodeEInserirNaLista();
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -132,8 +159,16 @@ class _QRViewExampleState extends State<QRViewExample> {
       setState(() {
         result = scanData;
       });
-      ;
     });
+
+    if (result != null) {
+      print(result!.code);
+      controller!.pauseCamera();
+      Future.delayed(Duration(seconds: 1), () {
+        controller!.resumeCamera();
+      });
+      result = null;
+    }
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
