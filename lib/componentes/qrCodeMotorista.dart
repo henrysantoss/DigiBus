@@ -27,6 +27,7 @@ class QRViewExample extends StatefulWidget {
 
 class _QRViewExampleState extends State<QRViewExample> {
   Barcode? result;
+  var acaoValida;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
@@ -44,11 +45,17 @@ class _QRViewExampleState extends State<QRViewExample> {
         final docAluno = await firestoreInstance.collection("Motorista").doc(idMotorista).collection("ListaAlunos").doc(codigoQrCode).get();
 
         if (!docAluno.exists) {
+          acaoValida = true;
           firestoreInstance.collection("Motorista").doc(idMotorista).collection("ListaAlunos").doc(codigoQrCode).set({
             "nome": nomeAluno
           });
+        } else {
+          acaoValida = false;
         }
+      } else {
+        acaoValida = false;
       }
+
       result = null;
     }
   }
@@ -59,7 +66,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
+          Expanded(flex: 10, child: _buildQrView(context)),
           Expanded(
             flex: 1,
             child: FittedBox(
@@ -67,11 +74,6 @@ class _QRViewExampleState extends State<QRViewExample> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  if (result != null)
-                    Text(
-                        'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                  else
-                    const Text('Scan a code'),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -140,10 +142,10 @@ class _QRViewExampleState extends State<QRViewExample> {
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-          borderColor: Colors.red,
+          borderColor: acaoValida == null ? Colors.white : acaoValida ? Colors.green : Colors.red,
           borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
+          borderLength: 245,
+          borderWidth: 20,
           cutOutSize: scanArea),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
@@ -165,7 +167,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
+        const SnackBar(content: Text('Sem permissão'))
       );
     }
   }
