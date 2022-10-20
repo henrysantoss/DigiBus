@@ -32,22 +32,30 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   void lerQrCodeEInserirNaLista() async {
     if (result != null) {
+      final idMotorista = Autenticador().UsuarioAtual?.uid;
       final firestoreInstance = FirebaseFirestore.instance;
-      var nomeAluno;
-      await firestoreInstance
-          .collection("Alunos")
-          .doc(result!.code)
-          .get()
-          .then((value) => {
-                nomeAluno = value.data()?["nome"],
-                firestoreInstance
-                    .collection("Motorista")
-                    .doc(Autenticador().UsuarioAtual?.uid)
-                    .collection("ListaAlunos")
-                    .add({"nome": nomeAluno})
-              });
+
+      var aluno = await firestoreInstance.collection("Aluno").doc(result!.code).get();
+
+      if (aluno.exists) {
+        var nomeAluno = aluno.get('nome');
+
+        final doc = firestoreInstance.collection("Motorista").doc(idMotorista).collection("ListaAlunos").doc(result?.code);
+
+        doc.get().then((DocumentSnapshot document) {
+          final data = document.data();
+
+          if (data == null) {
+            firestoreInstance.collection("Motorista").doc(idMotorista).collection("ListaAlunos").doc(result?.code).set({
+              "nome": nomeAluno
+            });
+          }
+        });
+
+      }
+
       controller!.pauseCamera();
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(const Duration(milliseconds: 1500), () {
         controller!.resumeCamera();
       });
       result = null;
