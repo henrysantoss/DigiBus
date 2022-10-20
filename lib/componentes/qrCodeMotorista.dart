@@ -32,32 +32,23 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   void lerQrCodeEInserirNaLista() async {
     if (result != null) {
-      final idMotorista = Autenticador().UsuarioAtual?.uid;
+      final codigoQrCode = result?.code;
       final firestoreInstance = FirebaseFirestore.instance;
+      final idMotorista = Autenticador().UsuarioAtual?.uid;
 
       var aluno = await firestoreInstance.collection("Aluno").doc(result!.code).get();
 
       if (aluno.exists) {
         var nomeAluno = aluno.get('nome');
 
-        final doc = firestoreInstance.collection("Motorista").doc(idMotorista).collection("ListaAlunos").doc(result?.code);
+        final docAluno = await firestoreInstance.collection("Motorista").doc(idMotorista).collection("ListaAlunos").doc(codigoQrCode).get();
 
-        doc.get().then((DocumentSnapshot document) {
-          final data = document.data();
-
-          if (data == null) {
-            firestoreInstance.collection("Motorista").doc(idMotorista).collection("ListaAlunos").doc(result?.code).set({
-              "nome": nomeAluno
-            });
-          }
-        });
-
+        if (!docAluno.exists) {
+          firestoreInstance.collection("Motorista").doc(idMotorista).collection("ListaAlunos").doc(codigoQrCode).set({
+            "nome": nomeAluno
+          });
+        }
       }
-
-      controller!.pauseCamera();
-      Future.delayed(const Duration(milliseconds: 1500), () {
-        controller!.resumeCamera();
-      });
       result = null;
     }
   }
@@ -168,15 +159,6 @@ class _QRViewExampleState extends State<QRViewExample> {
         result = scanData;
       });
     });
-
-    if (result != null) {
-      print(result!.code);
-      controller!.pauseCamera();
-      Future.delayed(Duration(seconds: 1), () {
-        controller!.resumeCamera();
-      });
-      result = null;
-    }
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
