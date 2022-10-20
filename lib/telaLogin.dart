@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
       });
 
       return msgErro;
-    };
+    }
   }
 
   Future<String> _recuperarSenha(String nome) {

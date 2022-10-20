@@ -11,13 +11,13 @@ class paginaMotorista extends StatefulWidget {
 }
 
 class _paginaMotoristaState extends State<paginaMotorista> {
+  PageController _pageController = PageController(initialPage: 0);
+
   List<Widget> Paginas = [
     listaMotorista(),
     qrCodeMotorista(),
   ];
   int meuIndex = 0;
-
-  PageController _pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
