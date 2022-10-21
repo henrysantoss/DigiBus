@@ -147,7 +147,7 @@ class _QRViewExampleState extends State<QRViewExample> {
       overlay: QrScannerOverlayShape(
           borderColor: acaoValida == null ? Colors.white : acaoValida ? Colors.green : Colors.red,
           borderRadius: 10,
-          borderLength: 245,
+          borderLength: 190,
           borderWidth: 20,
           cutOutSize: scanArea),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
