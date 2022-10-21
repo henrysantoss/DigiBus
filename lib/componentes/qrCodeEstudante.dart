@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:projeto_pi1/Firebase/Autenticador.dart';
 
 class qrCodeEstudante extends StatelessWidget {
   const qrCodeEstudante({super.key});
@@ -39,22 +41,16 @@ class qrCodeEstudante extends StatelessWidget {
                 fontWeight: FontWeight.w400
             ),
             ),
+            SizedBox(
+              height: 40.0,
+            ),
             Center(
           heightFactor: 1,
-          child: Column(
-            children: [
-              Container(
-                height: 300,
-                width: 300,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/imagens/qrcode_teste.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ],
-          ),
+          child: QrImage(
+                        data: Autenticador().UsuarioAtual!.uid,
+                        version: QrVersions.auto,
+                        size: 350.0,
+                      ),
         ),
           ],
         ),

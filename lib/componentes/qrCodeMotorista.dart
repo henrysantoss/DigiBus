@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:flutter_beep/flutter_beep.dart';
 
 import '../Firebase/Autenticador.dart';
 
@@ -49,8 +50,10 @@ class _QRViewExampleState extends State<QRViewExample> {
           firestoreInstance.collection("Motorista").doc(idMotorista).collection("ListaAlunos").doc(codigoQrCode).set({
             "nome": nomeAluno
           });
+          FlutterBeep.beep();
         } else {
           acaoValida = false;
+          FlutterBeep.beep(false);
         }
       } else {
         acaoValida = false;

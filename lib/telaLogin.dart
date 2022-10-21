@@ -71,6 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return FlutterLogin(
+      logo: AssetImage('assets/imagens/iconeLogo.png'),
       title: 'DIGIBus',
       onLogin: _autorizarUsuario,
       theme: LoginTheme(
@@ -78,10 +79,9 @@ class _LoginScreenState extends State<LoginScreen> {
         buttonTheme: LoginButtonTheme(
           backgroundColor: Color.fromARGB(255,217,37,30),
         ),
-        
       ),
       messages: LoginMessages(
-        forgotPasswordButton: 'Esqueceu sua senha?',
+        forgotPasswordButton: ' ',
         passwordHint: 'Senha',
         loginButton: 'Acessar',
         userHint: 'Email',
@@ -90,6 +90,17 @@ class _LoginScreenState extends State<LoginScreen> {
         recoverPasswordButton: 'Recuperar',
         goBackButton: 'Voltar',
       ),
+      userValidator: (value) {
+        if(!value!.contains("@")) {
+          return "Email Inválido";
+        }
+      },
+      passwordValidator: (value) {
+        if (value!.isEmpty) {
+          return "Senha Inválida";
+        }},
+      footer: "Copyright (c) 2022 - Projeto Integrador I",
+      hideForgotPasswordButton: true,
       onSubmitAnimationCompleted: () {
         if (login == "aluno") {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -102,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
             builder: (context) => paginaMotorista(),
           ));
         }
-      }, onRecoverPassword: _recuperarSenha,
+      }, onRecoverPassword: (String ) {  },
     );
   }
 }
