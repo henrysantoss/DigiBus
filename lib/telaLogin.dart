@@ -16,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String? login = '';
   List<String> getNome = [];
   String nomeAluno = '';
+  String nomeMotorista = '';
 
   Duration get loginTime => Duration(milliseconds: 1150);
 
@@ -37,6 +38,9 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         if (data.name.contains("@motorista")){
           login = "motorista";
+          getNome = data.name.split("@");
+          nomeMotorista = getNome[0].trim();
+          nomeMotorista = capitalize(nomeMotorista);
         } else {
           login = "aluno";
           getNome = data.name.split("@");
@@ -110,7 +114,9 @@ class _LoginScreenState extends State<LoginScreen> {
           ));
         } else if (login == "motorista") {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => paginaMotorista(),
+            builder: (context) => paginaMotorista(
+              motorista: nomeMotorista,
+            ),
           ));
         }
       }, onRecoverPassword: (String ) {  },
