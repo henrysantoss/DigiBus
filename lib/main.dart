@@ -4,13 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:projeto_pi1/Firebase/Construtor.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:projeto_pi1/servicos/notification_service.dart';
+import 'package:projeto_pi1/servicos/firebase_messaging.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
-  runApp(MyApp());
+  
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<NotificationService>(
+          create: (context) => NotificationService(),
+        ),
+        Provider<FirebaseMessagingService>(
+          create: (context) => FirebaseMessagingService(context.read<NotificationService>()),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class AppScrollBehavior extends MaterialScrollBehavior {
