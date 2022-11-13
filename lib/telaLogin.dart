@@ -72,8 +72,34 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  void RetornaLogin(String email){
+    setState(() {
+        if (email.contains("@motorista")){
+          login = "motorista";
+          getNome = email.split("@");
+          nomeMotorista = getNome[0].trim();
+          nomeMotorista = capitalize(nomeMotorista);
+        } else {
+          login = "aluno";
+          getNome = email.split("@");
+          nomeAluno = getNome[0].trim();
+          nomeAluno = capitalize(nomeAluno);
+        }
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
+   var user = FirebaseAuth.instance.currentUser;
+   if (user != null){
+    RetornaLogin(user.email!);
+    if (login == "aluno") {
+          return paginaAluno(aluno: nomeAluno);
+        } else if (login == "motorista") {
+          return paginaMotorista(motorista: nomeMotorista);
+        }
+      return null!;
+   } else {
     return FlutterLogin(
       logo: AssetImage('assets/imagens/iconeLogo.png'),
       title: 'DIGIBus',
@@ -121,5 +147,6 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       }, onRecoverPassword: (String ) {  },
     );
+   }
   }
 }

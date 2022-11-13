@@ -5,6 +5,8 @@ import 'package:projeto_pi1/firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:projeto_pi1/Firebase/Autenticador.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:projeto_pi1/telaLogin.dart';
 
 class perfilEstudante extends StatelessWidget {
   String nomeAluno = '';
@@ -30,9 +32,21 @@ class perfilEstudante extends StatelessWidget {
             String dbLocalidade = data['localidade'] ?? "";
             String dbTurno = data['turno'] ?? "";
             String dbCpf = data['cpf'] ?? "";
-            return Scaffold(
-                body: SafeArea(
-              child: Column(
+            return SafeArea(
+              child: Scaffold(
+              extendBodyBehindAppBar: true,
+                appBar: AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  leading: IconButton(
+                    icon: Icon(Icons.arrow_back, color: Colors.black),
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                      LoginScreen();
+                    },
+                  ),
+                ),
+              body: Column(
                 children: [
                   Container(
                     decoration: BoxDecoration(
@@ -269,7 +283,8 @@ class perfilEstudante extends StatelessWidget {
                   ),
                 ],
               ),
-            ));
+            )
+              );
           } else {
             return Column();
           }

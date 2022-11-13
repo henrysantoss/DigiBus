@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_pi1/Firebase/Construtor.dart';
 import 'firebase_options.dart';
@@ -13,6 +14,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
   );
+  await FirebaseMessaging.instance.subscribeToTopic("DIGIBUS");
   
   runApp(
     MultiProvider(
