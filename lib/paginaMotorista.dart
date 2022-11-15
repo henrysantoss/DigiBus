@@ -26,7 +26,7 @@ class _paginaMotoristaState extends State<paginaMotorista> {
 
   int meuIndex = 0;
 
-  PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController(initialPage: 0);
 
   // List<Widget> Paginas = [
   //   perfilMotorista(nomeMotorista: nomeMotorista,),
