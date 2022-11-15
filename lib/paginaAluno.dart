@@ -2,6 +2,7 @@
 import 'dart:ui';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:projeto_pi1/componentes/listaOnibus.dart';
 import 'package:projeto_pi1/componentes/perfilAlunoMotorista.dart';
 import 'componentes/perfilEstudante.dart';
 import 'componentes/qrCodeEstudante.dart';
@@ -41,6 +42,7 @@ class _paginaAlunoState extends State<paginaAluno> {
         children: [
           perfilEstudante(nomeAluno: nomeAluno,),
           qrCodeEstudante(),
+          listaOnibus(),
           perfilAlunoMotorista(),
         ],
       ),
@@ -57,6 +59,7 @@ class _paginaAlunoState extends State<paginaAluno> {
         items: [
           Icon(Icons.home),
           Icon(Icons.qr_code),
+          Icon(Icons.directions_bus),
           Icon(Icons.directions_bus)
         ],
       ),

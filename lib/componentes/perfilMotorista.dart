@@ -253,7 +253,7 @@ class perfilMotorista extends StatelessWidget {
                               vertical: 5.0, horizontal: 25.0),
                           child: ListTile(
                             leading: Icon(
-                              Icons.directions_bus_sharp,
+                              Icons.directions_bus,
                               color: Colors.teal,
                             ),
                             title: Text(
