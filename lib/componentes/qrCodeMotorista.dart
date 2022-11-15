@@ -50,6 +50,7 @@ class _QRViewExampleState extends State<QRViewExample> {
           firestoreInstance.collection("Motorista").doc(idMotorista).collection("ListaAlunos").doc(codigoQrCode).set({
             "nome": nomeAluno
           });
+          firestoreInstance.collection("Aluno").doc(codigoQrCode).update({"idMotorista": idMotorista});
           FlutterBeep.beep();
         } else {
           acaoValida = false;

@@ -60,7 +60,7 @@ class _paginaAlunoState extends State<paginaAluno> {
           Icon(Icons.home),
           Icon(Icons.qr_code),
           Icon(Icons.directions_bus),
-          Icon(Icons.directions_bus)
+          Icon(Icons.portrait)
         ],
       ),
     );

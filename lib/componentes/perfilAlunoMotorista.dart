@@ -12,6 +12,18 @@ class perfilAlunoMotorista extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        return Column();
+      final bancoDeDados = FirebaseFirestore.instance;
+      return SafeArea(child:
+    StreamBuilder<DocumentSnapshot>(
+        stream: bancoDeDados.collection('Aluno').doc(Autenticador().UsuarioAtual?.uid).snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.data!["idMotorista"].isEmpty){
+            return Center(child: Text("Não está cadastrado em nenhuma lista de ônibus."));
+          } else {
+            return Center(child: Text("Isaque - Acabar esta parte."));
+          }
+        }
+    )
+    );
   }
 }

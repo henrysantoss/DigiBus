@@ -50,6 +50,7 @@ class listaMotorista extends StatelessWidget {
                         if (resultado == null || !resultado) return;
 
                         bancoDeDados.collection("Motorista").doc(Autenticador().UsuarioAtual?.uid).collection("ListaAlunos").doc(doc.id).delete();
+                        bancoDeDados.collection("Aluno").doc(doc.id).update({"idMotorista": ""});
                       },
                     ),
                   ),
