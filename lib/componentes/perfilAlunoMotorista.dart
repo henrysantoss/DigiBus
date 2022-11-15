@@ -20,7 +20,12 @@ class perfilAlunoMotorista extends StatelessWidget {
           if (snapshot.data!["idMotorista"].isEmpty){
             return Center(child: Text("Não está cadastrado em nenhuma lista de ônibus."));
           } else {
-            return Center(child: Text("Isaque - Acabar esta parte."));
+            return StreamBuilder<DocumentSnapshot>(
+              stream: bancoDeDados.collection('Motorista').doc(snapshot.data!["idMotorista"]).snapshots(),
+              builder: (context, snapshot){
+                return Center(child: Text("Isaque - Terminar esta parte."));
+              }
+            );
           }
         }
     )
